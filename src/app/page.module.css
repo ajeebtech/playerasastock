@@ -1,0 +1,384 @@
+.page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  overflow: hidden;
+  /* Prevent scrolling */
+}
+
+.navbar {
+  width: 100%;
+  max-width: 1200px;
+  border-bottom: 2px solid var(--accent-primary);
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  margin-bottom: 1.5rem;
+  background: transparent;
+  backdrop-filter: none;
+  border-radius: 0;
+  box-shadow: none;
+  position: relative;
+  top: 0;
+  flex-shrink: 0;
+}
+
+.navLogo {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.85;
+  font-family: var(--font-unbounded), monospace;
+  font-weight: 900;
+  font-size: 1.5rem;
+  color: var(--accent-primary);
+  letter-spacing: -0.05em;
+  user-select: none;
+}
+
+.navLinks {
+  display: flex;
+  gap: 2rem;
+}
+
+.navLink {
+  color: var(--accent-primary);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: all 0.1s;
+  letter-spacing: 0.05em;
+}
+
+.navLink:hover {
+  background: var(--accent-primary);
+  color: black;
+  padding: 0 5px;
+}
+
+.navLink::after {
+  display: none;
+}
+
+.main {
+  width: 100%;
+  max-width: 1200px;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 2rem;
+  align-items: start;
+  overflow: hidden;
+}
+
+/* Sidebar Area for Search */
+.searchContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  border: 1px solid #333;
+  padding: 1.25rem;
+  background: black;
+  box-shadow: 8px 8px 0px var(--accent-primary);
+}
+
+.infoStrip {
+  display: flex;
+  flex-direction: column;
+  /* Stack vertically in sidebar */
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px dashed #333;
+  background: transparent;
+  border: none;
+  border-top: 1px solid #333;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.65rem;
+  border: 1px solid var(--accent-primary);
+  background: black;
+  color: white;
+  font-family: monospace;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.searchInput:focus {
+  background: var(--accent-primary);
+  color: black;
+  box-shadow: none;
+  outline: none;
+}
+
+.searchInput::placeholder {
+  color: #666;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: var(--font-geist-sans), sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0;
+  text-transform: none;
+  z-index: 10;
+  pointer-events: none;
+  padding-bottom: 8px;
+}
+
+.footerLink {
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  margin-left: 5px;
+  display: inline-block;
+  transition: all 0.2s ease;
+  pointer-events: auto;
+}
+
+.footerLink:hover {
+  transform: scale(1.05);
+  text-shadow: none;
+}
+
+.resetButton {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  background: transparent;
+  color: #666;
+  border: 1px solid #333;
+  border-radius: 0;
+  font-family: var(--font-unbounded), monospace;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.resetButton:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  background: rgba(255, 51, 0, 0.1);
+}
+
+.searchWrapper {
+  flex: 1;
+  position: relative;
+}
+
+.inputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon {
+  position: absolute;
+  right: 1.5rem;
+  pointer-events: none;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+  color: var(--accent-primary);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Autocomplete Dropdown override */
+.dropdown {
+  background: black;
+  border: 1px solid var(--accent-primary);
+  border-radius: 0;
+  box-shadow: 8px 8px 0px rgba(255, 51, 0, 0.3);
+  margin-top: 0;
+}
+
+.dropdownItem {
+  border-radius: 0;
+  font-family: monospace;
+  padding: 0.8rem;
+  border-bottom: 1px solid #222;
+  color: white;
+  font-size: 0.85rem;
+}
+
+.dropdownItem:hover {
+  background: white;
+  color: black;
+}
+
+/* Dashboard Area */
+.dashboard {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.graphHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--accent-primary);
+  padding-bottom: 0.5rem;
+}
+
+.playerName {
+  font-family: var(--font-unbounded), monospace;
+  font-size: 2rem;
+  font-weight: 900;
+  color: white;
+  margin: 0;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.toggleGroup {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.toggleButton {
+  background: transparent;
+  border: 1px solid #333;
+  color: #666;
+  padding: 0.5rem 1rem;
+  font-family: monospace;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.toggleButton:hover {
+  border-color: var(--accent-primary);
+  color: white;
+}
+
+.activeToggle {
+  background: var(--accent-primary);
+  color: black;
+  border-color: var(--accent-primary);
+  font-weight: bold;
+}
+
+/* Main Content Area */
+.card {
+  background: black;
+  border-radius: 0;
+  border: 1px solid var(--accent-primary);
+  padding: 0;
+  box-shadow: none;
+  /* Fill available space */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.chartContainer {
+  flex: 1;
+  display: flex;
+  padding: 1rem;
+  justify-content: center;
+  align-items: center;
+  border-bottom: none;
+  background-image: radial-gradient(#333 1px, transparent 1px);
+  background-size: 20px 20px;
+  overflow: hidden;
+}
+
+.error {
+  color: #ff3300;
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+.loadingText {
+  color: var(--accent-primary);
+  font-family: monospace;
+  font-size: 1.2rem;
+  animation: pulse 1.5s infinite;
+}
+
+.emptyState {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  border: 1px dashed #333;
+  color: #666;
+  font-family: monospace;
+}
+
+.infoStrip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: rgba(37, 99, 235, 0.05);
+  /* Very subtle blue tint */
+  border: 1px solid #333;
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.infoLabel {
+  font-size: 0.7rem;
+  color: #888;
+  text-transform: uppercase;
+  font-family: monospace;
+  letter-spacing: 0.05em;
+}
+
+.infoValue {
+  font-size: 1rem;
+  color: white;
+  font-weight: 700;
+  font-family: var(--font-unbounded), monospace;
+}
+
+.highlight {
+  color: var(--accent-primary);
+}

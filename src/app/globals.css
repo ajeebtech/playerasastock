@@ -1,0 +1,46 @@
+:root {
+  --background: #050505;
+  /* Pure Black */
+  --foreground: #ffffff;
+  --accent-primary: #2563EB;
+  /* Royal Blue */
+  --accent-secondary: #ffffff;
+  --border-color: #333333;
+  --grid-color: rgba(37, 99, 235, 0.15);
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: 'Courier New', Courier, monospace;
+  /* Fallback to mono until Geist Mono is enforced */
+  font-family: var(--font-geist-mono), monospace;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+
+  /* Industrial Grid Background */
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  border-radius: 0 !important;
+  /* Enforce sharp edges everywhere */
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
