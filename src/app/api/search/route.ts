@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { supabase } from '@/lib/supabase';
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
@@ -8,28 +9,32 @@ export async function GET(request: Request) {
         return NextResponse.json({ error: 'Missing or invalid term parameter' }, { status: 400 });
     }
 
-    // Mock search results for empty database
-    // Returns 3 mock players matching the term
-    const results = [
-        {
-            id: `${term}-1`,
-            name: term,
-            team: 'Mock Team A',
-            country: 'IN',
-        },
-        {
-            id: `${term}-2`,
-            name: `${term} Jr.`,
-            team: 'Mock Team B',
-            country: 'AU',
-        },
-        {
-            id: `${term}-3`,
-            name: `Sir ${term}`,
-            team: 'Mock Team C',
-            country: 'GB',
-        }
-    ];
+    if (!supabase) {
+        return NextResponse.json({ error: 'Supabase client not initialized' }, { status: 500 });
+    }
 
-    return NextResponse.json({ results });
+    try {
+        const { data, error } = await supabase
+            .from('data')
+            .select('"List Sr. No.", "Name", "Country", "2025 Team"')
+            .ilike('Name', `%${term}%`)
+            .limit(10);
+
+        if (error) {
+            console.error('Supabase error:', error);
+            return NextResponse.json({ error: error.message }, { status: 500 });
+        }
+
+        const results = data?.map((player: any) => ({
+            id: player['List Sr. No.'],
+            name: player['Name'],
+            team: player['2025 Team'],
+            country: player['Country'],
+        })) || [];
+
+        return NextResponse.json({ results });
+    } catch (err) {
+        console.error('Unexpected error:', err);
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    }
 }
