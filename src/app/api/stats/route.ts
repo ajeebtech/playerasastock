@@ -1,22 +1,34 @@
 import { NextResponse } from 'next/server';
+import { supabase } from '@/lib/supabase';
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
     const name = searchParams.get('name');
 
-    // Simulate delay
-    await new Promise(resolve => setTimeout(resolve, 500));
+    if (!id && !name) {
+        return NextResponse.json({ error: 'Missing id or name parameter' }, { status: 400 });
+    }
 
-    // Mock Data Generator based on name hash to be deterministic-ish
-    const hashData = (str: string) => {
-        let hash = 0;
-        for (let i = 0; i < str.length; i++) {
-            hash = str.charCodeAt(i) + ((hash << 5) - hash);
-        }
-        return Math.abs(hash);
-    };
+    if (!supabase) {
+        return NextResponse.json({ error: 'Supabase client not initialized' }, { status: 500 });
+    }
 
-    const seed = name ? hashData(name) : 12345;
+    let dbQuery = supabase.from('players').select('*');
+    if (id) {
+        dbQuery = dbQuery.eq('list_sr_no', id);
+    } else if (name) {
+        dbQuery = dbQuery.ilike('name', name);
+    }
+
+    const { data: player, error } = await dbQuery.single();
+
+    if (error || !player) {
+        return NextResponse.json({ error: 'Player not found' }, { status: 404 });
+    }
+
+    // Mock Data Generator for Graphs (preserving existing visualization logic)
+    const seed = player.list_sr_no || 12345;
     const rand = (min: number, max: number) => {
         const x = Math.sin(seed + min + max) * 10000;
         return Math.floor((x - Math.floor(x)) * (max - min + 1)) + min;
@@ -37,26 +49,27 @@ export async function GET(request: Request) {
             average: 50 + rand(-5, 5)
         })),
         stats: [
-            { name: 'Matches', value: rand(50, 200) },
-            { name: 'Runs', value: rand(1000, 5000) },
-            { name: 'Wickets', value: rand(10, 150) },
+            { name: 'Matches', value: (player.test_caps || 0) + (player.odi_caps || 0) + (player.t20_caps || 0) + (player.ipl || 0) },
+            { name: 'Runs', value: rand(1000, 5000) }, // Runs not in CSV
+            { name: 'Wickets', value: rand(10, 150) }, // Wickets not in CSV
             { name: 'Catches', value: rand(20, 100) },
             { name: 'Stumpings', value: rand(0, 20) },
         ],
         info: {
-            age: rand(18, 40),
-            specialism: ['BATSMAN', 'BOWLER', 'ALL-ROUNDER', 'WICKETKEEPER'][rand(0, 3)],
+            age: player.age,
+            specialism: player.specialism,
+            batting_style: player.batting_style,
+            bowling_style: player.bowling_style,
             caps: {
-                test: rand(0, 100),
-                odi: rand(0, 250),
-                t20: rand(0, 150)
+                test: player.test_caps || 0,
+                odi: player.odi_caps || 0,
+                t20: player.t20_caps || 0
             },
             ipl: {
-                matches: rand(0, 200),
-                team_2025: ['MI', 'CSK', 'RCB', 'KKR', 'GT', 'LSG', 'RR', 'DC', 'PBKS', 'SRH'][rand(0, 9)],
-                status_2025: rand(0, 1) > 0.5 ? 'RETAINED' : 'AUCTION',
-                cua_status: ['CAPPED', 'UNCAPPED', 'ASSOCIATE'][rand(0, 2)],
-                reserve_price: `${rand(20, 200)} Lakh`
+                team_2025: player.team_2025 || 'DNP',
+                status_2025: 'AUCTION',
+                cua_status: player.cua,
+                reserve_price: player.reserve_price ? `₹${player.reserve_price} Lakh` : 'N/A'
             }
         }
     };

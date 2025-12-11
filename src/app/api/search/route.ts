@@ -15,9 +15,9 @@ export async function GET(request: Request) {
 
     try {
         const { data, error } = await supabase
-            .from('data')
-            .select('"List Sr. No.", "Name", "Country", "2025 Team"')
-            .ilike('Name', `%${term}%`)
+            .from('players')
+            .select('list_sr_no, name, country, team_2025')
+            .ilike('name', `%${term}%`)
             .limit(10);
 
         if (error) {
@@ -26,10 +26,10 @@ export async function GET(request: Request) {
         }
 
         const results = data?.map((player: any) => ({
-            id: player['List Sr. No.'],
-            name: player['Name'],
-            team: player['2025 Team'],
-            country: player['Country'],
+            id: player.list_sr_no,
+            name: player.name,
+            team: player.team_2025,
+            country: player.country,
         })) || [];
 
         return NextResponse.json({ results });

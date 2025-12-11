@@ -23,7 +23,7 @@ export default function Home() {
     setError(null);
 
     try {
-      const res = await fetch(`/api/stats?name=${encodeURIComponent(player.name)}`);
+      const res = await fetch(`/api/stats?id=${player.id}`);
       if (!res.ok) throw new Error('Failed to fetch data');
       const result = await res.json();
       setPlayerStats(result.data);
@@ -78,25 +78,34 @@ export default function Home() {
                     <span className={styles.infoValue}>{playerStats.info.specialism}</span>
                   </div>
                   <div className={styles.infoItem}>
+                    <span className={styles.infoLabel}>Batting Style</span>
+                    <span className={styles.infoValue}>{playerStats.info.batting_style}</span>
+                  </div>
+                  {playerStats.info.bowling_style && (
+                    <div className={styles.infoItem}>
+                      <span className={styles.infoLabel}>Bowling Style</span>
+                      <span className={styles.infoValue}>{playerStats.info.bowling_style}</span>
+                    </div>
+                  )}
+                  <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>IPL Team '25</span>
                     <span className={`${styles.infoValue} ${styles.highlight}`}>
                       {playerStats.info.ipl.team_2025}
                     </span>
                   </div>
-                  <div className={styles.infoItem}>
-                    <span className={styles.infoLabel}>Status</span>
-                    <span className={styles.infoValue}>{playerStats.info.ipl.status_2025}</span>
-                  </div>
+
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Price</span>
                     <span className={styles.infoValue}>{playerStats.info.ipl.reserve_price}</span>
                   </div>
-                  <div className={styles.infoItem}>
-                    <span className={styles.infoLabel}>Caps (T/ODI/T20)</span>
-                    <span className={styles.infoValue}>
-                      {playerStats.info.caps.test}/{playerStats.info.caps.odi}/{playerStats.info.caps.t20}
-                    </span>
-                  </div>
+                  {playerStats.info.ipl.cua_status !== 'Uncapped' && (
+                    <div className={styles.infoItem}>
+                      <span className={styles.infoLabel}>Caps (T/ODI/T20)</span>
+                      <span className={styles.infoValue}>
+                        {playerStats.info.caps.test}/{playerStats.info.caps.odi}/{playerStats.info.caps.t20}
+                      </span>
+                    </div>
+                  )}
                   <div className={styles.infoItem}>
                     <span className={styles.infoLabel}>Type</span>
                     <span className={styles.infoValue}>{playerStats.info.ipl.cua_status}</span>

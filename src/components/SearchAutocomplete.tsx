@@ -121,9 +121,9 @@ export default function SearchAutocomplete({ placeholder, onSelect, activeColor 
                         <span style={{ fontWeight: 700 }}>
                             {getFlagEmoji(selectedItem.country)}{selectedItem.name}
                         </span>
-                        {selectedItem.team && (
-                            <span style={{ opacity: 0.7, fontSize: '0.8em' }}>
-                                {selectedItem.team}
+                        {selectedItem.country && (
+                            <span style={{ opacity: 0.7, fontSize: '0.8em', textTransform: 'uppercase' }}>
+                                {selectedItem.country}
                             </span>
                         )}
                     </div>
@@ -169,7 +169,7 @@ export default function SearchAutocomplete({ placeholder, onSelect, activeColor 
                                     {getFlagEmoji(player.country)}
                                     {player.name}
                                 </span>
-                                {player.team && (
+                                {player.country && (
                                     <span style={{
                                         fontSize: '0.7em',
                                         opacity: 0.6,
@@ -177,7 +177,7 @@ export default function SearchAutocomplete({ placeholder, onSelect, activeColor 
                                         textTransform: 'uppercase',
                                         color: 'var(--accent-primary)'
                                     }}>
-                                        {player.team}
+                                        {player.country}
                                     </span>
                                 )}
                             </div>
