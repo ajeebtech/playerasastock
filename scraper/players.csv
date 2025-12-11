@@ -1,14 +1,15 @@
-List Sr. No., Set No., 2026 Set, First Name, Surname, Country, State Assoc, DOB, Age, Specialism, Style, Test caps, ODI caps, T20 caps, IPL, 2025 Team, 2025 IPL, C/U/A,Reserve Price, Surname
-1, 1, BA1, Devon, Conway, New Zealand,, 08/07/1991, 34, BATTER, LHB, 29, 40, 62, 29, CSK, 6, Capped, 200, Conway
-2, 1, BA1, Jake, Fraser-McGurk, Australia,, 11/04/2002, 23, BATTER, RHB, 0 ,7, 8, 15, DC, 6, Capped, 200, Fraser-McGurk
-3, 1, BA1, Cameron, Green, Australia,, 03/06/1999, 26, BATTER, RHB, RIGHT ARM Fast, 33, 31, 21, 29, Capped, 200, Green
-4, 1, BA1, Sarfaraz, Khan, India, MCA, 22/10/1997, 28, BATTER, RHB, RIGHT ARM Leg Spin, 6, 50, Capped, 75, Khan
+List Sr. No., Set No., 2026 Set, First Name, Surname, Country, State Assoc, DOB, Age, Specialism, Batting Style, Bowling Style, Test caps, ODI caps, T20 caps, IPL, 2025 Team, 2025 IPL, C/U/A,Reserve Price, Surname
+10, 2, AL1, Venkatesh, Iyer, India, MPCA, 25/12/1994, 31, ALL-ROUNDER, LHB, RIGHT ARM Medium, 0 , 2, 9, 62, KKR, 11, Capped, 200, Iyer
+1, 1, BA1, Devon, Conway, New Zealand,, 08/07/1991, 34, BATTER, LHB,, 29, 40, 62, 29, CSK, 6, Capped, 200, Conway
+2, 1, BA1, Jake, Fraser-McGurk, Australia,, 11/04/2002, 23, BATTER, RHB,,0,7, 8, 15, DC, 6, Capped, 200, Fraser-McGurk
+3, 1, BA1, Cameron, Green, Australia,, 03/06/1999, 26, BATTER, RHB, RIGHT ARM Fast, 33, 31, 21, 29,,, Capped, 200, Green
+4, 1, BA1, Sarfaraz, Khan, India, MCA, 22/10/1997, 28, BATTER, RHB, RIGHT ARM Leg Spin, 6,,, 50,,, Capped, 75, Khan
 5, 1, BA1, David, Miller, South Africa,, 10/06/1989, 36, BATTER, LHB, 178, 130, 141, LSG, 11, Capped, 200, Miller
 6, 1, BA1, Prithvi, Shaw, India, MACA, 09/11/1999, 26, BATTER, RHB, 5, 6, 1, 79, Capped, 75, Shaw
 7, 2, AL1, Gus, Atkinson, England,, 19/01/1998, 28, ALL-ROUNDER, RHB, RIGHT ARM Fast, 14, 11, 4, 0, Capped ,200, Atkinson
-8, 2, AL1, Wanindu Hasaranga Sri Lanka 29/07/1997 28 ALL-ROUNDER RHB RIGHT ARM Leg Spin 4 68 90 37 RR 11 Capped 200 Hasaranga
-9, 2, AL1, Deepak Hooda India RCA 19/04/1995 30 ALL-ROUNDER RHB RIGHT ARM Off Spin 10 21 125 CSK 7 Capped 75 Hooda
-10, 2 AL1 Venkatesh Iyer India MPCA 25/12/1994 31 ALL-ROUNDER LHB RIGHT ARM Medium 2 9 62 KKR 11 Capped 200 Iyer
+8, 2, AL1, Wanindu, Hasaranga, Sri Lanka,, 29/07/1997, 28, ALL-ROUNDER, RHB, RIGHT ARM Leg Spin, 4, 68, 90, 37, RR, 11, Capped, 200, Hasaranga
+9, 2, AL1, Deepak, Hooda, India, RCA, 19/04/1995, 30, ALL-ROUNDER, RHB, RIGHT ARM Off Spin, 10, 21, 125, CSK, 7, Capped, 75, Hooda
+10, 2, AL1, Venkatesh, Iyer, India, MPCA, 25/12/1994, 31, ALL-ROUNDER, LHB, RIGHT ARM Medium, 0 , 2, 9, 62, KKR, 11, Capped, 200, Iyer
 11, 2 AL1 Liam Livingstone England 04/08/1993 32 ALL-ROUNDER RHB RIGHT ARM Leg Spin 1 39 60 49 RCB 10 Capped 200 Livingstone
 12, 2 AL1 Wiaan Mulder South Africa 19/02/1998 28 ALL-ROUNDER RHB RIGHT ARM Fast Medium 24 30 11 1 SRH 1 Capped 100 Mulder
 13, 2 AL1 Rachin Ravindra New Zealand 18/11/1999 26 ALL-ROUNDER LHB LEFT ARM Slow Orthodox 17 39 38 18 CSK 8 Capped 200 Ravindra

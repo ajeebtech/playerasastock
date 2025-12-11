@@ -20,7 +20,7 @@ const unbounded = Unbounded({ // Added Unbounded config
 });
 
 export const metadata: Metadata = {
-  title: "pvp valorant",
+  title: "moneyball for ipl",
   description: "made by ajeebtech",
 };
 
