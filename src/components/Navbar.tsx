@@ -10,7 +10,7 @@ export default function Navbar() {
             </Link>
             <div className={styles.navLinks}>
                 <Link href="/" className={styles.navLink}>Home</Link>
-                <Link href="/data" className={styles.navLink}>formulae</Link>
+                <Link href="/formulae" className={styles.navLink}>formulae</Link>
             </div>
         </nav>
     );
