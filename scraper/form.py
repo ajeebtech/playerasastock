@@ -90,7 +90,7 @@ def scrape_scores(driver, player_name):
             # Detect Access Denied text
             if "Access Denied" in driver.page_source:
                 print("ACCESS DENIED detected.")
-                return None
+                return None, None
             else:
                  pass # Fallback to looking for table
         
