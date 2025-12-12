@@ -7,7 +7,7 @@ import IntroSplash from "@/components/IntroSplash";
 import GraphContainer from "@/components/GraphContainer";
 import { useState } from "react";
 
-const GRAPH_TYPES = ['OVERVIEW', 'TRENDS', 'STATS', 'FORM'] as const;
+const GRAPH_TYPES = ['OVERVIEW', 'NEWS', 'STATS', 'FORM'] as const;
 type GraphType = typeof GRAPH_TYPES[number];
 
 export default function Home() {
@@ -16,6 +16,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [graphType, setGraphType] = useState<GraphType>('OVERVIEW');
   const [error, setError] = useState<string | null>(null);
+  const [resetKey, setResetKey] = useState(0);
 
   const handlePlayerSelect = async (player: any) => {
     setSelectedPlayer(player);
@@ -40,6 +41,7 @@ export default function Home() {
     setPlayerStats(null);
     setGraphType('OVERVIEW');
     setError(null);
+    setResetKey(prev => prev + 1);
   };
 
   return (
@@ -50,6 +52,7 @@ export default function Home() {
       <main className={styles.main}>
         <div className={styles.searchContainer}>
           <SearchAutocomplete
+            key={resetKey}
             placeholder="Search player..."
             onSelect={handlePlayerSelect}
             activeColor="#2563EB"

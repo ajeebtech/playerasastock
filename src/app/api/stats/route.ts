@@ -60,6 +60,7 @@ export async function GET(request: Request) {
             specialism: player.specialism,
             batting_style: player.batting_style,
             bowling_style: player.bowling_style,
+            news: player.news || [],
             caps: {
                 test: player.test_caps || 0,
                 odi: player.odi_caps || 0,

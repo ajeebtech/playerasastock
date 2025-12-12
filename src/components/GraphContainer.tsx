@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
 
 interface GraphContainerProps {
     data: any;
-    graphType: 'OVERVIEW' | 'TRENDS' | 'STATS' | 'FORM';
+    graphType: 'OVERVIEW' | 'NEWS' | 'STATS' | 'FORM';
     color?: string;
 }
 
@@ -63,34 +63,62 @@ export default function GraphContainer({ data, graphType, color = '#2563EB' }: G
         );
     }
 
-    if (graphType === 'TRENDS') {
-        const trendsData = data.trends || [];
+    if (graphType === 'NEWS') {
+        const news = data.info?.news || [];
         return (
-            <ResponsiveContainer width="100%" height={450}>
-                <LineChart data={trendsData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-                    <XAxis dataKey="match" stroke="#666" style={{ fontFamily: 'monospace' }} />
-                    <YAxis stroke="#666" style={{ fontFamily: 'monospace' }} />
-                    <Tooltip content={<CustomTooltip />} />
-                    <Legend />
-                    <Line
-                        type="monotone"
-                        dataKey="value"
-                        stroke={color}
-                        strokeWidth={2}
-                        activeDot={{ r: 8 }}
-                        dot={{ fill: color }}
-                    />
-                    <Line
-                        type="monotone"
-                        dataKey="average"
-                        stroke="#666"
-                        strokeDasharray="5 5"
-                        strokeWidth={1}
-                        dot={false}
-                    />
-                </LineChart>
-            </ResponsiveContainer>
+            <div style={{ padding: '1rem', height: 450, overflowY: 'auto' }}>
+                <h3 style={{
+                    color: '#fff',
+                    fontFamily: 'monospace',
+                    marginBottom: '1rem',
+                    fontSize: '1.2rem',
+                    textTransform: 'uppercase'
+                }}>
+                    Latest News
+                </h3>
+                {news.length === 0 ? (
+                    <div style={{ color: '#666', fontFamily: 'monospace' }}>No news available</div>
+                ) : (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                        {news.map((item: any, index: number) => (
+                            <a
+                                key={index}
+                                href={item.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{
+                                    textDecoration: 'none',
+                                    border: '1px solid #333',
+                                    padding: '1rem',
+                                    borderRadius: '8px',
+                                    backgroundColor: '#050505',
+                                    display: 'block',
+                                    transition: 'background-color 0.2s'
+                                }}
+                                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#111'}
+                                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#050505'}
+                            >
+                                <div style={{
+                                    color: color,
+                                    fontFamily: 'monospace',
+                                    fontWeight: 'bold',
+                                    fontSize: '1rem',
+                                    marginBottom: '0.5rem'
+                                }}>
+                                    {item.headline}
+                                </div>
+                                <div style={{
+                                    color: '#666',
+                                    fontSize: '0.8rem',
+                                    fontFamily: 'monospace'
+                                }}>
+                                    {new URL(item.link).hostname}
+                                </div>
+                            </a>
+                        ))}
+                    </div>
+                )}
+            </div>
         );
     }
 
@@ -213,7 +241,7 @@ export default function GraphContainer({ data, graphType, color = '#2563EB' }: G
                 </div>
 
                 <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={formData}>
+                    <LineChart data={formData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
                         <CartesianGrid strokeDasharray="3 3" stroke="#333" />
                         <XAxis dataKey="match" stroke="#666" style={{ fontFamily: 'monospace' }} />
                         <YAxis
