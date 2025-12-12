@@ -71,6 +71,10 @@ export async function GET(request: Request) {
                 cua_status: player.cua,
                 reserve_price: player.reserve_price ? `₹${player.reserve_price} Lakh` : 'N/A'
             }
+        },
+        form: {
+            batting: player.batting_form,
+            bowling: player.bowling_form
         }
     };
 

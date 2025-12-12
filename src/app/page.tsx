@@ -7,7 +7,7 @@ import IntroSplash from "@/components/IntroSplash";
 import GraphContainer from "@/components/GraphContainer";
 import { useState } from "react";
 
-const GRAPH_TYPES = ['OVERVIEW', 'TRENDS', 'STATS'] as const;
+const GRAPH_TYPES = ['OVERVIEW', 'TRENDS', 'STATS', 'FORM'] as const;
 type GraphType = typeof GRAPH_TYPES[number];
 
 export default function Home() {
