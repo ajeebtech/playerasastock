@@ -2,7 +2,7 @@ name: Daily Player Form Scraper
 
 on:
   schedule:
-    - cron: '30 18 * * *' # Runs at 18:30 UTC daily (00:00 IST)
+    - cron: '30 0 * * *' # Runs at 00:30 UTC every day (matches data page text)
   workflow_dispatch: # Allows manual triggering
 
 jobs:

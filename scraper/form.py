@@ -110,37 +110,73 @@ def scrape_scores(driver, player_name):
         
         if not target_table:
             print("Could not locate Recent Matches table with 'Bat' column.")
-            return None
+            return None, None
             
         rows = target_table.find_elements(By.CSS_SELECTOR, "tbody tr")
         
-        scores = []
-        scores = []
+        # Determine Bowl index
+        bowl_index = -1
+        if "Bowl" in texts:
+             bowl_index = texts.index("Bowl")
+        
+        bat_scores = []
+        bowl_scores = []
+        
         for row in rows:
             cols = row.find_elements(By.TAG_NAME, "td")
+            
+            # Batting
             if len(cols) > bat_index:
                 val = cols[bat_index].text.strip()
                 if val and val != '--':
-                    # Handle Test matches "0 & 37"
                     if '&' in val:
                         parts = val.split('&')
                         for p in parts:
                             p_clean = p.strip()
                             if p_clean and p_clean != '--':
-                                scores.append(p_clean)
+                                bat_scores.append(p_clean)
                     else:
-                        scores.append(val)
+                        bat_scores.append(val)
             
-            if len(scores) >= 10: 
-                scores = scores[:10]
+            # Bowling
+            if bowl_index != -1 and len(cols) > bowl_index:
+                val = cols[bowl_index].text.strip()
+                if val and val != '--':
+                    if '&' in val:
+                        parts = val.split('&')
+                        for p in parts:
+                            p_clean = p.strip()
+                            if p_clean and p_clean != '--':
+                                bowl_scores.append(p_clean)
+                    else:
+                        bowl_scores.append(val)
+            
+            # Limit to 10? Logic implies 10 matches, but splitting test matches increases count.
+            # Let's limit based on matches scraped (rows) or scores count?
+            # User said "come back to supabase to store them in an array called batting_form"
+            # It's safer to just take everything from the recent table (which is usually small) or top 10 rows.
+            # But earlier code limited len(scores) >= 10.
+            # If we want synchronous arrays (Bat/Bowl for same match), we should rely on row count.
+            # However, test matches split scores (e.g. 2 inns bat, maybe 2 inns bowl).
+            # It's hard to keep them aligned if we flatten.
+            # User request "consider those as 0,37, with the rest of the array".
+            # Implies flattening is fine.
+            
+            if len(bat_scores) >= 10: 
+                 bat_scores = bat_scores[:10]
+            if len(bowl_scores) >= 10:
+                 bowl_scores = bowl_scores[:10]
+            
+            if len(bat_scores) >= 10 and len(bowl_scores) >= 10:
                 break
                 
-        print(f"Scores found: {scores}")
-        return scores
+        print(f"Bat Scores: {bat_scores}")
+        print(f"Bowl Scores: {bowl_scores}")
+        return bat_scores, bowl_scores
 
     except Exception as e:
         print(f"Error scraping {player_name}: {e}")
-        return None
+        return None, None
 
 def main():
     # Fetch players
@@ -166,12 +202,18 @@ def main():
             name = f"{p['first_name']} {p['surname']}".strip()
             
             print(f"Processing {name}...")
-            scores = scrape_scores(driver, name)
+            bat_scores, bowl_scores = scrape_scores(driver, name)
             
-            if scores:
+            updates = {}
+            if bat_scores:
+                updates['batting_form'] = bat_scores
+            if bowl_scores:
+                updates['bowling_form'] = bowl_scores
+                
+            if updates:
                 # Update Supabase
                 try:
-                    data, count = supabase.table('players').update({'batting_form': scores}).eq('list_sr_no', pid).execute()
+                    data, count = supabase.table('players').update(updates).eq('list_sr_no', pid).execute()
                     print(f"Updated {name} in DB.")
                 except Exception as e:
                     print(f"Error updating DB: {e}")
