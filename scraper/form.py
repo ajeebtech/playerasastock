@@ -67,7 +67,7 @@ def scrape_scores(driver, player_name):
         
         if "espncricinfo.com/player/" not in profile_url and "espncricinfo.com/cricketers/" not in profile_url:
              print(f"Skipping: First result not ESPNcricinfo ({profile_url})")
-             return None
+             return None, None
 
         print(f"Found profile: {profile_url}")
         
