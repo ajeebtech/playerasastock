@@ -1,6 +1,6 @@
 undetected-chromedriver
 selenium
 python-dotenv
-webdriver-manager
+
 requests
 supabase
